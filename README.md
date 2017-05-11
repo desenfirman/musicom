@@ -18,8 +18,8 @@
 - [ ] Edit profile (Name, Date of birth, Bio, Display picture, Email, Password)
 
 ### etc
-- [ ] Password encrypted with Hash 
-- [ ] Registration with id, password, email
+- [x] Password encrypted with Hash 
+- [x] Registration with id, password, email
 - [ ] Guests cant access user menu
 
 Music stuff feature will be added later
