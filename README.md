@@ -37,7 +37,7 @@ $ git push
 ](https://help.github.com/articles/creating-a-pull-request-from-a-fork/)
 
 
-## Kelompok 4
+## Kelompok 1
 ```text
 Aldous Elpizochari - 1551502001111267
 Ageng Wibowo - 155150200111269
