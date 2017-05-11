@@ -2,7 +2,7 @@
 >Project for web programming course at Brawijaya University
 
 ## To-do List
-=========
+
 ###### Login differentiates admin and user
 ### Admin Side
 - [ ] Create user
@@ -16,7 +16,8 @@
 - [ ] Upload images
 - [ ] Can CRUD comment
 - [ ] Edit profile (Name, Date of birth, Bio, Display picture, Email, Password)
-=====
+
+### etc
 - [ ] Password encrypted with Hash 
 - [ ] Registration with id, password, email
 - [ ] Guests cant access user menu
@@ -24,7 +25,7 @@
 Music stuff feature will be added later
 
 ### Contributions
-=====
+
 ```text
 $ git clone https://github.com/66FAYE/musicom.git
 $ cd musicom
