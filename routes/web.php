@@ -24,3 +24,6 @@ Route::get('/logout','SessionsController@destroy');
 
 Route::get('/artists','ArtistController@index');
 Route::get('/artist/{artist}','ArtistController@show');
+
+Route::get('/albums', 'AlbumController@index');
+Route::get('/albums/{album}','AlbumController@show');
