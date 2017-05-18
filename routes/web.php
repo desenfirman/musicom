@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-	return view('welcome');
+	return view('layouts.master');
 });
 
 Route::get('/register', 'RegistrationController@register');
@@ -21,3 +21,6 @@ Route::post('/register', 'RegistrationController@store');
 Route::get('/login','SessionsController@create');
 Route::post('/login','SessionsController@store');
 Route::get('/logout','SessionsController@destroy');
+
+Route::get('/artists','ArtistController@index');
+Route::get('/artist/{artist}','ArtistController@show');
