@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 
 class RegistrationController extends Controller
 {
 	public function register()
 	{
+		if (Auth::check()) {
+			return redirect('/');
+		}
 		return view('registration.create');
 	}
 
@@ -17,7 +21,7 @@ class RegistrationController extends Controller
 		$this->validate(request(),[
 			'username' => 'required',
 			'email' => 'required|email',
-			'password' => 'required|confirmed' 
+			'password' => 'required|confirmed'
 
 			]);
 		//create and save the user

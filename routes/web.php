@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-	return view('layouts.master');
-});
+
+
 
 Route::get('/register', 'RegistrationController@register');
 Route::post('/register', 'RegistrationController@store');
@@ -24,3 +23,15 @@ Route::get('/logout','SessionsController@destroy');
 
 Route::get('/artists','ArtistController@index');
 Route::get('/artist/{artist}','ArtistController@show');
+
+Route::group(['middleware' => 'auth'], function()
+{
+	Route::get('/', 'HomeController@index');
+});
+
+Route::get('/welcome', function()
+{
+	return view('welcome');
+})->name('login');
+
+Route::get('/profile','profile_controller@index');
