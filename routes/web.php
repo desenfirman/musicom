@@ -14,6 +14,11 @@
 Route::get('/', function () {
 	return view('layouts.master');
 });
+Route::get('/testmusic', function () {
+	return view('layouts.test');
+});
+
+
 
 Route::get('/register', 'RegistrationController@register');
 Route::post('/register', 'RegistrationController@store');
