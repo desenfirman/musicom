@@ -2,15 +2,19 @@
 
 @section('content')
 
-<br><br><br><br>
 
 
-<div class="row">
-	<h1>tinggal dihias</h1>
+
+<div class="row" style="margin-left:2em">
+	<h1>Album Title</h1>
+
 </div>
-<div class="row" >
+<div class="row" style="margin-left:2em">
+	<h6 style="color:grey;">By artistname</h6>
+</div>
+<div class="row" style="margin-left:2em" >
 
-	<div class="container col" >
+	<div class="container col" style="border:1px black">
 
 		<audio id="audio" preload="none" tabindex="0">
 			<source src="https://archive.org/download/calexico2006-12-02..flac16/calexico2006-12-02d1t02.mp3" data-track-number="1" />
@@ -180,13 +184,29 @@
 		</div>
 
 	</div>
-	<div class="col"   style="background:black;height:400px;margin-right:100px">
+	<div class="col" >
+
+		<img src="http://placehold.it/400x400?text=Album+Image" >
 	</div>
+	<div class="col" >
+		<div  style="display:inline-block;vertical-align:bottom;">
+			<img src="http://placehold.it/200x200?text=Artist+Image">
+		</div>
+		<span style="font-size:30px;padding-top:510em">&nbsp;Artist name</span>
 
-</div>
+		<p style="text-align:justify">Artist description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. </p>
+		</div>
+	</div>
+	<link href={{"/css/player.css"}} rel="stylesheet">
+
+	<link href={{"/css/albumcard.css"}} rel="stylesheet">
+	<script src={{"/js/player.js"}}></script>
 
 
 
 
 
-@endsection
+	@endsection

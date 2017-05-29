@@ -12,10 +12,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link href={{"/css/player.css"}} rel="stylesheet">
-
-	<script src={{"/js/player.js"}}></script>
-
+	
 
 
 </head>
@@ -38,7 +35,6 @@
 
 
 	</div>
-	<script src="https://cdn.bootcss.com/aplayer/1.6.0/APlayer.min.js" ></script>
-	<script src="https://unpkg.com/aplayer"></script>
+
 </body>
 </html>

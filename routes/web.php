@@ -31,4 +31,6 @@ Route::get('/artists','ArtistController@index');
 Route::get('/artist/{artist}','ArtistController@show');
 
 Route::get('/albums', 'AlbumController@index');
-Route::get('/albums/{album}','AlbumController@show');
+Route::get('/album/{album}','AlbumController@show');
+
+Route::get('/add_to_playlist/{song}', 'PlaylistController@store');

@@ -26,9 +26,11 @@ class RegistrationController extends Controller
 		$password = $request->input('password');
 		$user->password = bcrypt($password);
 		$user->save();
-		//sign them in
+		$playlist = new \App\Playlist;
+		$playlist->user_id = $user->id;
+		$playlist->save();
 		auth()->login($user);
-		//redirect to home page
+
 		return redirect('/');
 
 	}

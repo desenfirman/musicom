@@ -16,6 +16,7 @@ class CreateSongsTable extends Migration
         Schema::create('songs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->integer('track_number');
             $table->integer('artist_id');
             $table->integer('album_id');
             $table->string('link');
