@@ -15,6 +15,14 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $this->assertTrue(true);
+
+    	$first = factory(User::class)->create();
+    	$second = factory(User::class)->create([
+    		'created_at' => \Carbon\Carbon::now()->subMonth()
+    		]);
+  
+
+    	$this->assertCount(2);
+
     }
-}
+  }

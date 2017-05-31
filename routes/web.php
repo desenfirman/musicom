@@ -15,8 +15,22 @@ Route::get('/', function () {
 	return view('layouts.master');
 });
 /*Route::get('/test', function () {
-	return view('profile.show');
+	return view('dashboard.manage');
 });*/
+
+Route::get('/dashboard','AdminController@index');
+Route::get('/dashboard/users','AdminController@users');
+Route::post('/dashboard/users/{user}/delete', 'AdminController@destroyUser');
+Route::get('/dashboard/artists','AdminController@artistsData');
+Route::get('/dashboard/albums','AdminController@albumsData');
+Route::get('/dashboard/songs','AdminController@songsData');
+
+
+Route::get('/dashboard/create/artist','ArtistController@create');
+Route::post('/dashboard/create/artist','ArtistController@store');
+
+Route::get('/dashboard/create/album','AlbumController@create');
+Route::post('/dashboard/create/album','AlbumController@store');
 
 
 

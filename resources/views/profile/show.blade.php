@@ -38,7 +38,7 @@
 			<br>
 			<div class="form-group">
 				<label>Send {{$user->username}} a message</label>
-				<textarea type="textarea" name="message" class="form-control" style="height:7em" required></textarea>
+				<textarea type="textarea" name="message" class="form-control" row="4" required></textarea>
 				<br>
 				<input type="submit" name="submit" class="btn btn-primary pull-right">
 			</div>
