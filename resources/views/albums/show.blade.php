@@ -83,13 +83,19 @@
 
 		</div>
 		<div class="col" >
-		<img src="{{$album->album_image}}" style="max-width:400px;max-weight:400px">
-		{{-- 	<img src="http://placehold.it/400x400?text=Album+Image" > --}}
+			<img src="{{$album->album_image}}" style="max-width:400px;max-weight:400px">
+
+			@if(! $album->liked(Auth::id()))
+			<a href="/like/{{$album->id}}">Like</a>		
+			@else
+			You liked this album			/			<a href="/unlike/{{$album->id}}">Unlike</a>
+			@endif
+			{{-- 	<img src="http://placehold.it/400x400?text=Album+Image" > --}}
 		</div>
 		<div class="col" >
 			<div>
-			<img src="{{$album->artist->artist_image}}" style="max-width:200px;max-weight:200px">
-	{{-- 			<img src="http://placehold.it/200x200?text=Artist+Image"> --}}
+				<img src="{{$album->artist->artist_image}}" style="max-width:200px;max-weight:200px">
+				{{-- 			<img src="http://placehold.it/200x200?text=Artist+Image"> --}}
 			</div>
 			<span style="font-size:30px;padding-top:510em">&nbsp;{{$album->artist->name}}</span>
 			<br>
@@ -106,6 +112,6 @@
 
 
 
-	
+
 
 		@endsection

@@ -13,10 +13,29 @@ class PlaylistController extends Controller
 		$playlist = Auth::user()->playlist;
 		$playlist->songs()->attach($song);
 		$playlist->save();
-
-		return redirect("/albums/$s");
-
+		return redirect("/album/$s");
 	}
+
+	public function like($id)
+	{
+		$album = \App\Album::find($id);
+		$album->like(Auth::id());
+		$album->save();
+
+		return redirect("/album/$id");
+	}
+
+	public function unlike($id)
+	{
+		$album = \App\Album::find($id);
+		$album->unlike(Auth::id());
+		$album->save();
+
+		return redirect("/album/$id");
+	}
+
+
+
 
 
 }

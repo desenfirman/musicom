@@ -32,4 +32,24 @@ class User extends Authenticatable
     {
         return $this->hasOne(Playlist::class);
     }
+
+    public function likes()
+    {
+     return $this->belongsToMany(Playlist::class, 'likes', 'user_id', 'playlist_id');
+ }
+
+ public function messages()
+ {
+    return $this->hasMany(Message::class);
+}
+/*
+public function sendMessage($message){
+        // Comment::create([
+        //  'body' => $body,
+        //  'post_id' => $this->id
+        //  ]);
+
+    $this->messages()->create(compact('message'));
+}*/
+
 }

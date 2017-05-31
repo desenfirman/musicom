@@ -14,9 +14,9 @@
 Route::get('/', function () {
 	return view('layouts.master');
 });
-Route::get('/testmusic', function () {
-	return view('layouts.test');
-});
+/*Route::get('/test', function () {
+	return view('profile.show');
+});*/
 
 
 
@@ -33,4 +33,11 @@ Route::get('/artist/{artist}','ArtistController@show');
 Route::get('/albums', 'AlbumController@index');
 Route::get('/album/{album}','AlbumController@show');
 
+Route::get('/profile/{user}', 'ProfileController@show');
+
+Route::post('/profile/{user}', 'MessageController@store');
+
+
 Route::get('/add_to_playlist/{song}', 'PlaylistController@store');
+Route::get('/like/{playlist}', 'PlaylistController@like');
+Route::get('/unlike/{playlist}', 'PlaylistController@unlike');
