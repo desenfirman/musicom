@@ -29,8 +29,6 @@ Route::get('/dashboard/songs','AdminController@songsData');
 Route::get('/dashboard/create/artist','ArtistController@create');
 Route::post('/dashboard/create/artist','ArtistController@store');
 
-Route::get('/dashboard/create/album','AlbumController@create');
-Route::post('/dashboard/create/album','AlbumController@store');
 
 
 
@@ -46,6 +44,8 @@ Route::get('/artist/{artist}','ArtistController@show');
 
 Route::get('/albums', 'AlbumController@index');
 Route::get('/album/{album}','AlbumController@show');
+Route::get('/dashboard/create/album','AlbumController@create');
+Route::post('/dashboard/create/album','AlbumController@store');
 
 Route::get('/profile/{user}', 'ProfileController@show');
 

@@ -91,6 +91,15 @@
 			You liked this album			/			<a href="/unlike/{{$album->id}}">Unlike</a>
 			@endif
 			{{-- 	<img src="http://placehold.it/400x400?text=Album+Image" > --}}
+			<ul>
+				<?php $length = count($likes);?>
+				@for($i = 0; $i< $length; $i++)
+				<li>
+				<a href="/profile/{{\App\User::find($likes[$i]->user_id)->id}}">{{\App\User::find($likes[$i]->user_id)->username}}</a> likes this.
+				</li>
+
+				@endfor
+			</ul>
 		</div>
 		<div class="col" >
 			<div>

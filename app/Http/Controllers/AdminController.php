@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
 
@@ -24,6 +24,15 @@ class AdminController extends Controller
 	public function destroyUser($user) 
 	{
 		$del = \App\User::find($user);
+		$messages = \App\Message::all()->where('user_id',$user);
+		DB::table('likeable_likes')->where('user_id',$user)->delete();
+
+		$length = count($messages);
+		for($i = 0; $i< $length; $i++){
+			$messages[$i]->delete();
+		};
+
+
 		$del->delete();
 		return redirect()->back();
 	}

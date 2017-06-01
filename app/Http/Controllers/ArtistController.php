@@ -37,7 +37,7 @@ class ArtistController extends Controller
 			$artist->name = request('name');
 			$artist->artist_description = request('artist_description');
 			$extension = $request->artist_image->extension();
-			$path = request()->file('artist_image')->storeAs('public/artist_image', 'artist_'. $artist->id.'.'.$extension);
+			$path = request()->file('artist_image')->storeAs('public/artist_image', 'artist_'. $artist->name.'.'.$extension);
 			$path = str_replace("public/","",$path);
 			$artist->artist_image = $path;
 			$artist->save();
