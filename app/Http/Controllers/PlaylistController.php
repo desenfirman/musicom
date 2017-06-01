@@ -7,6 +7,19 @@ use Auth;
 class PlaylistController extends Controller
 {
 
+	public function __construct()
+	{
+		$this->middleware('auth')->except('show'); 		
+	}
+
+	public function show($user)
+	{
+
+		$playlist = \App\User::find($user)->playlist;
+
+		return view('profile.playlist', compact('playlist'));
+	}
+
 	public function store($song)	{
 		$s = \App\Song::find($song);
 		$s = $s->album_id;

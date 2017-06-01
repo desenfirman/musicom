@@ -44,7 +44,6 @@
 							<td>{{$song->artist->name}}</td>
 							<td>{{$song->album->title}}</td>
 							<td>{{$song->created_at}}</td>
-
 						</tr>
 						@endforeach
 					</tbody>

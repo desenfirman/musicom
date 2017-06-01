@@ -33,17 +33,19 @@
 
 	<div class="col-6" style="border:1px solid black;border-left:none;border-right:none">
 
+	@if(Auth::user())
 		<form method="POST" action="/profile/{{$user->id}}">
 			{{csrf_field()}}
 			<br>
 			<div class="form-group">
 				<label>Send {{$user->username}} a message</label>
-				<textarea type="textarea" name="message" class="form-control" row="4" required></textarea>
+				<textarea type="textarea" name="message" class="form-control" rows="4" required></textarea>
 				<br>
 				<input type="submit" name="submit" class="btn btn-primary pull-right">
 			</div>
 		</form>
 		<br><br>
+		@endif
 		
 
 		@foreach($received as $message)
@@ -67,7 +69,7 @@
 		<br>
 		<h3>Album liked</h3>
 		<ul>
-		<?php $length = count($albums);?>
+			<?php $length = count($albums);?>
 			@for($i = 0; $i< $length; $i++)
 			<li>{{$albums[$i]->title}}</li>
 

@@ -7,6 +7,11 @@ use Auth;
 
 class MessageController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
 	public function store($user, Request $request){
 
 		$this->validate(request(),['message'=>'required|min:3']);
