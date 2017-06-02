@@ -25,13 +25,6 @@ Route::get('/dashboard/artists','AdminController@artistsData');
 Route::get('/dashboard/albums','AdminController@albumsData');
 Route::get('/dashboard/songs','AdminController@songsData');
 
-
-Route::get('/dashboard/create/artist','ArtistController@create');
-Route::post('/dashboard/create/artist','ArtistController@store');
-
-
-
-
 Route::get('/register', 'RegistrationController@register');
 Route::post('/register', 'RegistrationController@store');
 
@@ -41,13 +34,19 @@ Route::get('/logout','SessionsController@destroy');
 
 Route::get('/artists','ArtistController@index');
 Route::get('/artist/{artist}','ArtistController@show');
+Route::get('/dashboard/create/artist','ArtistController@create');
+Route::post('/dashboard/create/artist','ArtistController@store');
 
 Route::get('/albums', 'AlbumController@index');
 Route::get('/album/{album}','AlbumController@show');
 Route::get('/dashboard/create/album','AlbumController@create');
 Route::post('/dashboard/create/album','AlbumController@store');
+Route::get('/like/{album}', 'AlbumController@like');
+Route::get('/unlike/{album}', 'AlbumController@unlike');
 
 Route::get('/profile/{user}', 'ProfileController@show');
+Route::get('/follow/{user}', 'ProfileController@follow');
+Route::get('/unfollow/{user}', 'ProfileController@unfollow');
 
 Route::post('/profile/{user}', 'MessageController@store');
 

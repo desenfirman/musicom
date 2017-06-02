@@ -6,27 +6,43 @@
 <br><br><br>
 
 
+<div class="row card" style="background-color: #f4f4f4;">
+	<div class="container">
 	<section>
-		<div class="container-playlist">
-			<ul>
-				<li ><a href="#">Artists</a></li>
-
-			</ul>
+		<div class="divider-new">
+			<h2 class="h3-responsive">Artists list</h2>
 		</div>
 	</section>
+		<div class="row">
+			
+			<input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search for names..">
 
-		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+			<ul id="myUL" class="list-group" style="width:100%;">
+			<?php $last = ''; ?>
+			@foreach ($artists as $artist)
+				<?php
+				
+				$current = strtolower($artist->name[0]);
+				if ($last != $current) {
+					echo   "<li><a href=\"#\" class=\"header\">" . strtoupper($current) . "</a></li>";
+					$last = $current;
+				}
+				?>
+				
+				<li><a class="list-group-item"  href="/artist/{{$artist->id}}">{{$artist->name}}</a></li>
+			
+			@endforeach
+			</ul>
+			
+		</div>	
+		<br><br>
+		</div>
+		
 
-		<ul id="myUL">
-		@foreach ($artists as $artist)
-		 {{--  <li><a href="#" class="header">A</a></li> --}}
-		  <li><a href="/artist/{{$artist->id}}">{{$artist->name}}</a></li>
-		  
-		 {{--  <li><a href="#" class="header">B</a></li> --}}
-		  
-		 {{--  <li><a href="#" class="header">C</a></li> --}}
-		  @endforeach
-		</ul>
+</div>
+		
+
+
 {{-- 
 	<div class="row">
 		@foreach($artists as $artist)

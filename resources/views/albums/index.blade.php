@@ -1,36 +1,16 @@
-@extends('layouts.master')
-
-
-@section('content')
+@extends('layouts.master') @section('content')
 
 <br><br><br>
 
 
-<section>
-	<div class="container-playlist">
-		<ul>
-		<li ><a href="#">Albums</a></li>
-
-		</ul>
+<div class="container" >
+	<div class="col-md-9 card" style="background-color: #f0f0f0;">
+		<div class="container">@include('albums.albumlist')</div>
 	</div>
-</section>
-
-<div class="row">
-	@foreach($albums as $album)
-	<div class="col-sm-3" id="box" >
-		<center>
-			<div id="image" >
-				<a href="/album/{{ $album->id}}"><img src="{{$album->album_image}}" style="max-height: 250px;" ></a>
-			</div>
-			<div id="name"  style="text-decoration: none">
-				<a href="/album/{{ $album->id}}">{{ $album->name}}</a>
-			</div>
-			<br>
-		</center>
+	<div class="col-md-3 card" style="background-color: #f0f0f0;">
+	
 	</div>
-	@endforeach
-</center>
 </div>
-</div>
-<link href={{"/css/aralindex.css"}} rel="stylesheet">
-@endsection
+
+
+<link href={{"/css/aralindex.css"}} rel="stylesheet"> @endsection

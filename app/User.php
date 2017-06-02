@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Conner\Likeable\LikeableTrait;
 class User extends Authenticatable
 {
     use Notifiable;
-
+    use LikeableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-    'username', 'email', 'password',
+    'username','name', 'email', 'password',
     ];
 
     /**
@@ -33,13 +33,10 @@ class User extends Authenticatable
         return $this->hasOne(Playlist::class);
     }
 
-    public function likes()
-    {
-     return $this->belongsToMany(Playlist::class, 'likes', 'user_id', 'playlist_id');
- }
+ 
 
- public function messages()
- {
+   public function messages()
+   {
     return $this->hasMany(Message::class);
 }
 /*

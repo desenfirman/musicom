@@ -1,34 +1,43 @@
-@extends('layouts.master')
-
-@section('content')
+@extends('layouts.master') @section('content')
 
 <?php $albums = $artist->albums;?>
-<br><br><br>
-<section>
-	<div class="container-playlist">
-		<ul>
-		<li ><a href="#">Albums by {{$artist->name}}</a></li>
+<br>
 
-		</ul>
-	</div>
-</section>
+<div class="row card" style="background-color: #f0f0f0;">
+	<!--<div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+            <div class="view hm-black-light">
+                <img src="{{$artist->artist_image}}" alt="First slide" width="1366px" height="100px">
+            </div>
+        </div>
+    </div>-->
 
-<div class="row">
-	@foreach($albums as $album)
-	<div class="col-sm-3" id="box" >
-		<center>
-			<div id="image" >
-				<a href="/album/{{ $album->id}}"><img src="{{$album->album_image}}" style="max-height: 250px;" ></a>
-			</div>
-			<div id="name">
-				<a style="text-decoration: none;" href="/album/{{$album->id}}">{{$album->title}}</a>
-			</div>
-			<br>
-		</center>
+	<div style="
+				width: auto;
+				color: #f4f4f4;
+				background: 
+					linear-gradient(
+						rgba(0, 0, 0, 0.70), 
+						rgba(0, 0, 0, 0.70)
+					),
+					url('{{$artist->artist_image}}') ;
+					background-size: cover;
+					padding: 150px 0;
+					background-attachment: fixed;
+			">
+		<h2 style=" text-align:center" ;>{{$artist->name}}</h2>
+		<p style="text-align:center; width: 70%; margin: 0 auto;" ;>
+			{{$artist->artist_description}}
+		</p>
+
 	</div>
-	@endforeach
-</center>
+
+	<div class="container">
+
+		@include('albums.albumlist')
+		
+	</div>
 </div>
-</div>
-<link href={{"/css/aralindex.css"}} rel="stylesheet">
+
+
 @endsection

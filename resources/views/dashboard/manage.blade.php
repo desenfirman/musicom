@@ -21,7 +21,7 @@
 				<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
 					<thead>
 						<tr>
-							<th>User ID</th>
+							<th>UID</th>
 							<th>Username</th>
 							<th>Email</th>
 							<th>Registered at</th>
@@ -31,7 +31,7 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<th>User ID</th>
+							<th class="col-xs-1">UID</th>
 							<th>Username</th>
 							<th>Email</th>
 							<th>Registered at</th>
@@ -41,7 +41,7 @@
 					<tbody>
 						@foreach($users as $user)
 						<tr>
-							<td>{{$user->id}}</td>
+							<td >{{$user->id}}</td>
 							<td>{{$user->username}}</td>
 							<td>{{$user->email}}</td>
 							<td>{{$user->created_at}}</td>

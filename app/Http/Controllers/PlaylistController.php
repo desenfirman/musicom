@@ -31,20 +31,20 @@ class PlaylistController extends Controller
 
 	public function like($id)
 	{
-		$album = \App\Album::find($id);
+		$album = \App\Playlist::find($id);
 		$album->like(Auth::id());
 		$album->save();
 
-		return redirect("/album/$id");
+		return redirect("/playlist/$id");
 	}
 
 	public function unlike($id)
 	{
-		$album = \App\Album::find($id);
+		$album = \App\Playlist::find($id);
 		$album->unlike(Auth::id());
 		$album->save();
 
-		return redirect("/album/$id");
+		return redirect("/playlist/$id");
 	}
 
 
