@@ -25,7 +25,7 @@ class ProfileController extends Controller
 		$user->like(Auth::id());
 		$user->save();
 
-		return redirect("/profile/$id");
+		return redirect()->back();
 	}
 
 	public function unfollow($id)
@@ -34,6 +34,6 @@ class ProfileController extends Controller
 		$user->unlike(Auth::id());
 		$user->save();
 
-		return redirect("/profile/$id");
+		return redirect()->back();
 	}
 }

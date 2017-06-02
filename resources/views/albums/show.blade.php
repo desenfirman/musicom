@@ -1,126 +1,157 @@
-@extends('layouts.master')
-
-@section('content')
-
-<?php $songs = $album->songs; ?>
+@extends('layouts.master') @section('content')
 
 
 
+<?php 
+$songs = $album->songs;
+?>
+<br>
 
-<div class="row" style="margin-left:2em">
-	<h1>{{$album->title}}</h1>
+<script src="/js/player.js"></script>
+
+<div class="row">
+
+    <div class="col-md-8">
+        <div class="large-centered medium-centered columns amplitude-player" id="">
+
+            <div class="row">
+                <div class="col-5 amplitude-left " id="">
+                    <img src="<?php
+                    echo asset("storage/".$album->album_image);
+                    ?>" alt="">
+                    <div id="player-left-bottom">
+                        <div id="time-container">
+                            <span class="current-time"><span class="amplitude-current-minutes" amplitude-main-current-minutes="true"></span>:
+                            <span class="amplitude-current-seconds" amplitude-main-current-seconds="true"></span>
+                        </span>
+                        <input type="range" class="amplitude-song-slider" amplitude-main-song-slider="true" />
+                        <span class="duration"><span class="amplitude-duration-minutes" amplitude-main-duration-minutes="true"></span>:
+                        <span class="amplitude-duration-seconds" amplitude-main-duration-seconds="true"></span>
+                    </span>
+                </div>
+                <div id="control-container">
+                    <div id="repeat-container">
+                        <div class="amplitude-repeat" id="repeat"></div>
+                    </div>
+                    <div id="central-control-container">
+                        <div id="central-controls">
+                            <div class="amplitude-prev" id="previous"></div>
+                            <div class="amplitude-play-pause" amplitude-main-play-pause="true" id="play-pause"></div>
+                            <div class="amplitude-next" id="next"></div>
+                        </div>
+                    </div>
+                    <div id="shuffle-container">
+                        <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle"></div>
+                    </div>
+                </div>
+                <div id="meta-container">
+                    <span amplitude-song-info="name" amplitude-main-song-info="true" class="song-name"></span>
+                    <div class="song-artist-album">
+                        <span amplitude-song-info="artist" amplitude-main-song-info="true"></span>
+                        <span amplitude-song-info="album" amplitude-main-song-info="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-7 amplitude-right" id="">
+            @foreach($songs as $song)
+            <div class="song amplitude-song-container amplitude-play-pause" amplitude-song-index="<?php $index = $song->track_number - 1; echo $index;  ?>">
+                <div class="song-now-playing-icon-container">
+                    <div class="play-button-container">
+                    </div>
+                    <img class="now-playing" src="/img/open-source/amplitudejs/now-playing.svg" />
+                </div>
+                <div class="song-meta-data" >
+                    <span class="song-title" >{{$song->title}}</span>
+                    <span class="song-artist" >{{$song->artist->name}}</span>
+                </div>
+                <div>
+                    <span class="song-duration">{{$song->track_number}}</span>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-md-4">
+  <div class="card" style="background-color: #f0f0f0;">
+    <img class="img-fluid" src="<?php
+                    echo asset("storage/".$album->artist->artist_image);
+                    ?>" alt="">
+    <div class="card-block">
+        <!--Title-->
+        <h4 class="card-title">{{$album->artist->name}}</h4>
+        <!--Text-->
+        <p class="card-text">{{$album->artist->artist_description}}</p>
+
+    </div>
 
 </div>
-<div class="row" style="margin-left:2em">
-	<h6 style="color:grey;">By {{$album->artist->name}}</h6>
 </div>
-<div class="row" style="margin-left:2em" >
+</div>
 
-	<div class="container col" style="border:1px black">
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/amplitude.js"></script>
 
-		<div class="player">
+<script type="text/javascript">
+    Amplitude.init({
 
-			<div class="large-toggle-btn">
-				<i class="large-play-btn"><span class="screen-reader-text">Large toggle button</span></i>
-			</div>
-			<!-- /.play-box -->
+        "default_album_art": "{{$album->album_image}}",
+        "songs": [
+        @foreach($songs as $song) {
+            "name": "{{$song->title}}",
+            "artist": "{{$album->artist->name}}",
+            "album": "{{$album->title}}",
+            "url": "{{$song->link}}"
+        },
+        @endforeach
 
-			<div class="info-box">
-				<div class="track-info-box">
-					<div class="track-title-text"></div>
-					<div class="audio-time">
-						<span class="current-time">00:00</span> /
-						<span class="duration">00:00</span>
-					</div>
-				</div>
-				<!-- /.info-box -->
+        ],
+        "volume": 100
+    });
 
-				<div class="progress-box">
-					<div class="progress-cell">
-						<div class="progress">
-							<div class="progress-buffer"></div>
-							<div class="progress-indicator"></div>
-						</div>
-					</div>
-				</div>
+    $(document).ready(function () {
 
-			</div>
-			<!-- /.progress-box -->
+        $(window).on('resize', function () {
+            adjustPlayerHeights();
+        });
 
-			<div class="controls-box">
-				<i class="previous-track-btn disabled"><span class="screen-reader-text">Previous track button</span></i>
-				<i class="next-track-btn"><span class="screen-reader-text">Next track button</span></i>
-			</div>
-			<!-- /.controls-box -->
+        $('.bandcamp-link').on('click', function (e) {
 
-		</div>
-		<!-- /.player -->
+            e.stopPropagation();
+        });
 
-		<audio id="audio" preload="none" tabindex="0">
-			@foreach($songs as $song)
-			<source src="<?php echo asset("storage/".$song->link); ?>" data-track-number="{{$song->track_number}}"/>
-				@endforeach
-			</audio>	
+        jQuery('.song').on('mouseover', function () {
+            jQuery(this).css('background-color', '#00A0FF');
+            jQuery(this).find('.song-meta-data .song-title').css('color', '#FFFFFF');
+            jQuery(this).find('.song-meta-data .song-artist').css('color', '#FFFFFF');
+            if (!jQuery(this).hasClass('amplitude-active-song-container')) {
+                jQuery(this).find('.play-button-container').css('display', 'block');
+            }
+            jQuery(this).find('img.bandcamp-grey').css('display', 'none');
+            jQuery(this).find('img.bandcamp-white').css('display', 'block');
+            jQuery(this).find('.song-duration').css('color', '#FFFFFF');
+        });
 
+        jQuery('.song').on('mouseout', function () {
+            jQuery(this).css('background-color', '#FFFFFF');
+            jQuery(this).find('.song-meta-data .song-title').css('color', '#272726');
+            jQuery(this).find('.song-meta-data .song-artist').css('color', '#607D8B');
+            jQuery(this).find('.play-button-container').css('display', 'none');
+            jQuery(this).find('img.bandcamp-grey').css('display', 'block');
+            jQuery(this).find('img.bandcamp-white').css('display', 'none');
+            jQuery(this).find('.song-duration').css('color', '#607D8B');
+        });
 
-			<div class="play-list">
-				@foreach($songs as $song)
-				
-				<div class="play-list-row" data-track-row="{{$song->track_number}}">
-					<div class="small-toggle-btn">
-						<i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i>
-					</div>
-					<div class="track-number">
-						{{$song->track_number}}.
-					</div>
-					<div class="track-title">
-						<a class="playlist-track" href="<?php echo asset("storage/".$song->link); ?>" data-play-track="{{$song->track_number}}">{{$song->title}}</a>
-					</div>
-					<a style="display:inline" href="/add_to_playlist/{{$song->id}}" style="font-weight:bold">+</a>
-				</div>
-				@endforeach
-			</div>
+        jQuery('.amplitude-play-pause').on('click', function () {
+            $(this).find($(".fa")).removeClass('fa-play-circle').addClass('fa-pause-circle');
+        });
 
-		</div>
-		<div class="col" >
-			<img src="{{$album->album_image}}" style="max-width:400px;max-weight:400px">
-
-			@if(! $album->liked(Auth::id()))
-			<a href="/like/{{$album->id}}">Like</a>		
-			@else
-			You liked this album			/			<a href="/unlike/{{$album->id}}">Unlike</a>
-			@endif
-			{{-- 	<img src="http://placehold.it/400x400?text=Album+Image" > --}}
-			<ul>
-				<?php $length = count($likes);?>
-				@for($i = 0; $i< $length; $i++)
-				<li>
-				<a href="/profile/{{\App\User::find($likes[$i]->user_id)->id}}">{{\App\User::find($likes[$i]->user_id)->username}}</a> likes this.
-				</li>
-
-				@endfor
-			</ul>
-		</div>
-		<div class="col" >
-			<div>
-				<img src="{{$album->artist->artist_image}}" style="max-width:200px;max-weight:200px">
-				{{-- 			<img src="http://placehold.it/200x200?text=Artist+Image"> --}}
-			</div>
-			<span style="font-size:30px;padding-top:510em">&nbsp;{{$album->artist->name}}</span>
-			<br>
-			<p style="text-align:justify">Artist description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. </p>
-			</div>
-		</div>
-		<link href={{"/css/player.css"}} rel="stylesheet">
-
-		<link href={{"/css/albumcard.css"}} rel="stylesheet">
-		<script src={{"/js/player.js"}}></script>
+    });
+</script>
 
 
 
 
-
-		@endsection
+@endsection

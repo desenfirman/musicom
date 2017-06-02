@@ -29,7 +29,24 @@
 				}
 				?>
 				
-				<li><a class="list-group-item"  href="/artist/{{$artist->id}}">{{$artist->name}}</a></li>
+				<li>
+				<a class="list-group-item" style="
+								max-height: 90px;
+								width: 5%;
+								background: 
+									linear-gradient(
+										rgba(0, 0, 0, 0.30), 
+										rgba(0, 0, 0, 0.30)
+									),
+									url('{{$artist->artist_image}}') ;
+								background-size: cover;
+								padding: 5% 5%;
+									
+							" class="col-1 mask waves-effect waves-light"  href="/artist/{{$artist->id}}">
+					
+					<p style="margin: -10px auto auto 80px;width:500px">{{$artist->name}}</p>
+				
+				</a></li>
 			
 			@endforeach
 			</ul>
@@ -52,7 +69,9 @@
 				<a href="/artist/{{ $artist->id}}"><img src="{{$artist->artist_image}}" style="max-height: 250px;" ></a>
 			</div>
 						<div id="name"  style="text-decoration: none">
-					<a href="/artist/{{ $artist->id}}">{{ $artist->name}}</a>
+					<a href="/artist/{{ $artist->id}}">
+						{{ $artist->name}}
+					</a>
 				</div>
 				<br>
 			</center>

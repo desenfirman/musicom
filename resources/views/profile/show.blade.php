@@ -49,14 +49,18 @@
 			<div class="col-2">
 				<h5 style="color:grey">Followers</h5>
 				<h5 style="color:rgb(47, 194, 239)">
-				<a href="#" data-toggle="modal" data-target="#followers" style="text-decoration:none;">
+					<a href="#" data-toggle="modal" data-target="#followers" style="text-decoration:none;">
 						{{$user->likeCount}}
 					</a>
 				</h5>
 			</div>
 			<div class="col-2">
 				<h5 style="color:grey">Following</h5>
-				<h5 style="color:rgb(47, 194, 239)">{{count($following)}}</h5>
+				<h5 style="color:rgb(47, 194, 239)">
+					<a href="#" data-toggle="modal" data-target="#following" style="text-decoration:none;">
+						{{count($following)}}
+					</a>
+				</h5>
 			</div>
 			<div class="col-2">
 				<h5 style="color:grey">Likes</h5>
@@ -139,27 +143,102 @@
 
 </div>
 
-<!-- Button trigger modal -->
-
-<!-- Modal -->
-<div class="modal fade" id="followers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
+<!-- Modal Follower-->
+<div class="modal fade bd-example-modal-lg" id="followers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog" style="width: 1200px;" role="document">
+		<div class="modal-content ">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLongTitle">Followers</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
+			<?php $length = count($followers); ?>
 			<div class="modal-body">
-				<?php $length = count($followers); ?>
 				@for($i = 0; $i< $length; $i++)
-				<li>{{\App\User::find($followers[$i]->user_id)->name}}</li>
+				<div class=" row">
+					<div class="col-8">
+						<img src="{{\App\User::find($followers[$i]->user_id)->user_image}}" style="border-radius:200px; max-width:50px; max-height:50px; margin: 10px">{{\App\User::find($followers[$i]->user_id)->name}}</span>
+
+					</div>
+
+					@if(Auth::check())
+
+					@if($followers[$i]->user_id == Auth::user()->id)
+
+					@else
+					@if(! \App\User::find($followers[$i]->user_id)->liked(Auth::user()->id))
+					<div class="col-4">
+						<a href="/follow/{{$followers[$i]->user_id}}">
+							<button type="button" class="btn btn-info" style=" border-radius:5px; ">Follow</button>
+						</a>
+					</div>
+					@else 
+					<div class="col-4">
+						<a href="/unfollow/{{$followers[$i]->user_id}}">
+							<button type="button" class="btn btn-warning" style=" border-radius:5px; ">Unfollow</button>
+						</a>
+					</div>
+					@endif
+					@endif
+					@endif
+					<hr style="margin:0px;">
+				</div>
 				@endfor
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal Following-->
+<div class="modal fade bd-example-modal-lg" id="following" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog" style="width: 1200px;" role="document">
+		<div class="modal-content ">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Following</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+				@foreach($following as $u)
+				<div class=" row">
+					<div class="col-8">
+						<img src="{{\App\User::find($u->id)->user_image}}" style="border-radius:200px; max-width:50px; max-height:50px; margin: 10px">{{\App\User::find($u->id)->name}}</span>
+
+					</div>
+
+					@if(Auth::check())
+
+					@if($u->id == Auth::user()->id)
+
+					@else
+					@if(! \App\User::find($u->id)->liked(Auth::user()->id))
+					<div class="col-4">
+						<a href="/follow/{{$u->id}}">
+							<button type="button" class="btn btn-info" style=" border-radius:5px; ">Follow</button>
+						</a>
+					</div>
+					@else 
+					<div class="col-4">
+						<a href="/unfollow/{{$u->id}}">
+							<button type="button" class="btn btn-warning" style=" border-radius:5px; ">Unfollow</button>
+						</a>
+					</div>
+					@endif
+					@endif
+					@endif
+					<hr style="margin:0px;">
+				</div>
+				@endforeach
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
