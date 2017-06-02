@@ -16,7 +16,11 @@ class AdminController extends Controller
 
 	public function index()
 	{
-		return view('dashboard.index');
+		$artists = \App\Artist::all();
+ 		$albums = \App\Artist::all();
+ 		$songs = \App\Song::all();
+ 		$users = \App\User::all();
+ 		return view('dashboard.index',compact('artists','albums','songs','users'));
 
 	}
 

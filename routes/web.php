@@ -52,5 +52,11 @@ Route::post('/profile/{user}', 'MessageController@store');
 
 
 Route::get('/add_to_playlist/{song}', 'PlaylistController@store');
-Route::get('/like/{playlist}', 'PlaylistController@like');
-Route::get('/unlike/{playlist}', 'PlaylistController@unlike');
+Route::get('/delete_from_playlist/{song}', 'PlaylistController@delete');
+Route::get('/playlist/like/{playlist}', 'PlaylistController@like');
+Route::get('/playlist/unlike/{playlist}', 'PlaylistController@unlike');
+Route::get('/playlist/{playlist}', 'PlaylistController@show');
+
+
+
+Route::get('/index', 'HomeController@home');

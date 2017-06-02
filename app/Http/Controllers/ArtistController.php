@@ -36,10 +36,11 @@ class ArtistController extends Controller
 	{
 		$this->validate(request(),[
 			'name' => 'required|min:2',
-			'artist_description' => 'required',   
+			'artist_description' => 'required',
+			'artist_image' => 'required'			   
 			]);
 
-		if (request()->hasFile('artist_image')){
+
 			$artist = new Artist;
 			$artist->name = request('name');
 			$artist->artist_description = request('artist_description');
@@ -49,7 +50,7 @@ class ArtistController extends Controller
 			$artist->artist_image = $path;
 			$artist->save();
 			return redirect()->back();
-		}
+		
 		return redirect()->back();
 	}
 	

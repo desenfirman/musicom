@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Auth;
 class PlaylistController extends Controller
 {
@@ -20,6 +21,16 @@ class PlaylistController extends Controller
 		return view('profile.playlist', compact('playlist'));
 	}
 
+	public function delete($song)
+ 	{
+ 		$tbd = DB::table('playlist_song')->where([
+				['playlist_id', Auth::user()->playlist->id],
+				['song_id', $song]
+		 ])->delete();
+ 		return redirect()->back();
+ 	}
+ 
+
 	public function store($song)	{
 		$s = \App\Song::find($song);
 		$s = $s->album_id;
@@ -35,7 +46,7 @@ class PlaylistController extends Controller
 		$album->like(Auth::id());
 		$album->save();
 
-		return redirect("/playlist/$id");
+		return redirect()->back();
 	}
 
 	public function unlike($id)
@@ -44,7 +55,7 @@ class PlaylistController extends Controller
 		$album->unlike(Auth::id());
 		$album->save();
 
-		return redirect("/playlist/$id");
+		return redirect()->back();
 	}
 
 

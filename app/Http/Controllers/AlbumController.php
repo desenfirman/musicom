@@ -43,12 +43,12 @@ class AlbumController extends Controller
 		$album->title = request('album_title');
 		$album->artist_id = request('artist_id');
 
-		if (request()->hasFile('album_image')){
-			$extension = $request->album_image->extension();
-			$path = request()->file('album_image')->storeAs('public/album_image', 'album_'. $album->title.'.'.$extension);
-			$path = str_replace("public/","",$path);
-			$album->album_image = $path;
-			$album->save();
+		
+		$extension = $request->album_image->extension();
+		$path = request()->file('album_image')->storeAs('public/album_image', 'album_'. $album->title.'.'.$extension);
+		$path = str_replace("public/","",$path);
+		$album->album_image = $path;
+		$album->save();
 
 
 			$track_number = $request->track_number;
@@ -66,7 +66,7 @@ class AlbumController extends Controller
 				$song->save();
 			}
 			return redirect()->back();
-		}
+		
 		$album->save();//showing errors
 
 

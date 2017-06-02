@@ -3,7 +3,7 @@
 
 
 <?php 
-$songs = $album->songs;
+$songs = $playlist->songs;
 ?>
 <br>
 
@@ -16,7 +16,7 @@ $songs = $album->songs;
 
             <div class="row">
                 <div class="col-5 amplitude-left " id="">
-                    <img src="{{$album->album_image}}" alt="">
+                    <img amplitude-song-info="cover_art_url"  src="http://via.placeholder.com/320x320" style="height:47%;">
                     <div id="player-left-bottom">
                         <div id="time-container">
                             <span class="current-time"><span class="amplitude-current-minutes" amplitude-main-current-minutes="true"></span>:
@@ -51,19 +51,20 @@ $songs = $album->songs;
                 </div>
                 <br>
                 @if(Auth::check()) 
-                @if( !$album->liked(Auth::user()->id))
-                    <a href="/like/{{$album->id}}" class="btn btn-primary btn-block"><span class="fa fa-thumbs-up"></span>&nbsp &nbsp Like</a>
+                @if( !$playlist->liked(Auth::user()->id))
+                    <a href="/playlist/like/{{$playlist->id}}" class="btn btn-primary btn-block"><span class="fa fa-thumbs-up"></span>&nbsp &nbsp Like</a>
                 @else
-                    <a href="/unlike/{{$album->id}}" class="btn btn-success btn-block"><span class="fa fa-thumbs-up"></span>&nbsp &nbsp Liked</a>
+                    <a href="/playlist/unlike/{{$playlist->id}}" class="btn btn-success btn-block"><span class="fa fa-thumbs-up"></span>&nbsp &nbsp Liked</a>
                 @endif
                  @endif
                  <br>
-                 <p class="card-title" style="display:block;text-align:center;">{{$album->likeCount}} people likes this</p>
+                 <p class="card-title" style="display:block;text-align:center;">{{$playlist->likeCount}} people likes this</p>
             </div>
         </div>
         <div class="col-7 amplitude-right" id="" style="max-height:650px">
+            <?php $count = -1;?>
             @foreach($songs as $song)
-            <div class="song amplitude-song-container amplitude-play-pause" style="width:90%;float:left;" amplitude-song-index="<?php $index = $song->track_number - 1; echo $index;  ?>">
+            <div class="song amplitude-song-container amplitude-play-pause" style="width:90%;float:left;" amplitude-song-index="<?php $count++; echo $count;?>">
                 <div class="song-now-playing-icon-container">
                     <div class="play-button-container">
                     </div>
@@ -77,7 +78,7 @@ $songs = $album->songs;
                     <span class="song-duration"  style="width:20px;">{{$song->track_number}}</span>
                 </div> 
             </div>
-            <a href="/add_to_playlist/{{$song->id}}" class="fa fa-plus-circle" style="width:10%;float:right;margin-top:5%;"></a>
+            <a href="/delete_from_playlist/{{$song->id}}" class="fa fa-minus-circle" style="width:10%;float:right;margin-top:5%;"></a>
             @endforeach
         </div>
     </div>
@@ -85,14 +86,12 @@ $songs = $album->songs;
 </div>
 <div class="col-md-4">
   <div class="card" style="background-color: #f0f0f0;">
-    <img class="img-fluid" src="<?php
-                    echo $album->artist->artist_image;
-                    ?>" alt="">
+    <img class="img-fluid" amplitude-song-info="podcast_episode_cover_art_url">
     <div class="card-block">
         <!--Title-->
-        <h4 class="card-title">{{$album->artist->name}}</h4>
+        <h4 class="card-title" amplitude-song-info="artist"></h4>
         <!--Text-->
-        <p class="card-text">{{$album->artist->artist_description}}</p>
+        <p class="card-text" amplitude-song-info="artist_description"></p>
 
     </div>
 
@@ -105,19 +104,25 @@ $songs = $album->songs;
 
 <script type="text/javascript">
     Amplitude.init({
-
-        "default_album_art": "{{$album->album_image}}",
         "songs": [
+        <?php
+            $i = 0;
+         ?>
         @foreach($songs as $song) {
             "name": "{{$song->title}}",
-            "artist": "{{$album->artist->name}}",
-            "album": "{{$album->title}}",
-            "url": "{{$song->link}}"
-        },
+            "artist": "{{$song->album->artist->name}}",
+            "album": "{{$song->album->title}}",
+            "url": "{{$song->link}}",
+            "cover_art_url": "{{$song->album->album_image}}",
+            "podcast_episode_cover_art_url": "{{$song->artist->artist_image}}",
+            "artist_description":"{{$song->artist->artist_description}}"
+        }
+            @if (++$i != count($songs)) ,
+            @endif
         @endforeach
 
         ],
-        "volume": 100
+        "volume": 100,
     });
 
     $(document).ready(function () {
