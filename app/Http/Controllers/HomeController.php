@@ -8,7 +8,8 @@ class HomeController extends Controller
 	{
 		/*
 		$albums = \App\Album::all()->latest();*/
-		$albums = \App\Album::latest();
+		$albums = \App\Album::latest()->get();
+		$artists = \App\Artist::latest()->get();
 		$albumLikes = DB::table('likeable_like_counters')->where('likable_type','App\Album')->orderBy('count', 'desc')->get();
 		$playlistLikes = DB::table('likeable_like_counters')->where('likable_type','App\Playlist')->orderBy('count', 'desc')->get();
 		/*ntar munculin albumnya*/
@@ -22,6 +23,6 @@ class HomeController extends Controller
 		{
 			\App\Album::find($playlistLikes[$i]->likable_id);
 		}*/
-		return view('home');
+		return view('home', compact('artists','albums', 'albumLikes', 'playlistLikes'));
 	}
 }

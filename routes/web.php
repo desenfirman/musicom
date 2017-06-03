@@ -58,5 +58,9 @@ Route::get('/playlist/unlike/{playlist}', 'PlaylistController@unlike');
 Route::get('/playlist/{playlist}', 'PlaylistController@show');
 
 
+Route::get('/welcome', function ()
+{
+	return view('welcome');
+});
 
 Route::get('/index', 'HomeController@home');

@@ -1,6 +1,6 @@
 @extends('layouts.master') @section('content')
-<br><br><br>
-<div class="row">
+<br>
+<div class="row" style="background-color: white">
 	<div class="col-2 offset-3">
 		<center>
 			<img src="http://placehold.it/150" style="margin-top:35px;margin-bottom:35px; border-radius:200px; max-width:150px;max-height:150px;">			{{-- <img src="{{$user->user_image}}" style="margin-top:35px;margin-bottom:35px"> --}}
@@ -62,29 +62,30 @@
 	</div>
 </div>
 
-
 <div class="row" style="background-color: rgb(239, 239, 239)">
-	<div class="col-7 offset-1" style="border-left:none;border-right:none">
+	<div class="col-7" style="border-left:none;border-right:none">
 
 		@if(Auth::check())
-		<form method="POST" action="/profile/{{$user->id}}">
-			{{csrf_field()}}
-			<br>
-			<div class="form-group">
-				<label>Send {{$user->username}} a message</label>
-				<textarea type="textarea" name="message" class="form-control md-textarea" {{-- row="47" --}} style="height:5em;margin-bottom:0;padding-right:1em"
-				    required></textarea>
+		<div class="container">
+			<form method="POST" action="/profile/{{$user->id}}">
+				{{csrf_field()}}
 				<br>
-				<input type="submit" name="submit" value="Send" class="btn btn-primary pull-right">
-			</div>
-		</form>
-		@endif
+				<div class="form-group">
+					<h5>Send {{$user->username}} a message</h5>
+					<textarea type="textarea" name="message" class="form-control md-textarea" {{-- row="47" --}} style="height:5em;margin-bottom:0;padding-right:1em;"
+					    required></textarea>
+					<input type="submit" name="submit" value="SEND" class="btn btn-primary pull-right btn-sm">
+				</div>
+			</form>
+			@endif
+		</div>
+		<br><br>
 
 		<br><br> @foreach($received as $message)
+		<div class="container">
 		<div class="message" style="background-color: white;">
-			{{-- <img src="{{User::find($message->user_id)->user_image}}" class="rounded-circle"> --}}
-
-			<img src="http://placehold.it/50" style="border-radius:200px; max-width:50px; max-height:50px; margin: 10px">
+		
+			<img src="http://placehold.it/50" style="border-radius:200px; max-width:50px; max-height:50px; margin: 10px; ">
 			<span class="fullname" style="margin:5px; font-size:15px;">
 				{{\App\User::find($message->user_id)->username}}
 				<span class="date">
@@ -98,22 +99,26 @@
 
 			<hr>
 		</div>
+		</div>
 
 		@endforeach
+		<br>
 	</div>
 
-	<div class="col-3">
+
+	<div class="col-5">
+		<div class="container">
 		<br>
-		<h3 style="text-align:center">Albums Liked</h3>
+		<h5 style="text-align:center">Albums Liked</h5>
 		<hr>
 		<br>
-		<?php $length = count($albums);?> @for($i = 0; $i
-		< $length; $i++) <div class="row" style="margin-bottom: 30px;">
-			<div class="col-1"></div>
-			<div class="col-10 bg" style="background-color:white">
+		<ul class="list-group">
+		<?php $length = count($albums);?> 
+		
+		@for($i = 0; $i < $length; $i++) 
+			<li class="list-group-item">
 				<div class="row">
-					<div class="col-3" style="padding:0px">
-						{{-- <img src="http://placehold.it/75" style="margin-right:20px; max-width:150px;max-height:150px"> --}}
+					<div class="col-3">
 						<img src="{{$albums[$i]->album_image}}" style="margin-right:20px; max-width:75px;max-height:75px;">
 					</div>
 					<div class="col-9">
@@ -122,10 +127,12 @@
 						</p>
 					</div>
 				</div>
-			</div>
+			</li>	
+		@endfor			
+			</ul>
+			<br><br>
 	</div>
 
-	@endfor
 
 </div>
 
@@ -145,26 +152,27 @@
 			</div>
 			<?php $length = count($followers); ?>
 			<div class="modal-body">
-				@for($i = 0; $i
-				< $length; $i++) <div class=" row">
-					<div class="col-8">
-						<img src="{{\App\User::find($followers[$i]->user_id)->user_image}}" style="border-radius:200px; max-width:50px; max-height:50px; margin: 10px">{{\App\User::find($followers[$i]->user_id)->name}}</span>
 
+				@for($i = 0; $i < $length; $i++) 
+				<div class="list-group-item">
+					<div class="col-7">
+						<img  src="{{\App\User::find($followers[$i]->user_id)->user_image}}" ><h5 style="vertical-align:middle;margin-top:3.5%;">{{\App\User::find($followers[$i]->user_id)->name}}</h5>
 					</div>
 
 					@if(Auth::check()) @if($followers[$i]->user_id == Auth::user()->id) @else @if(! \App\User::find($followers[$i]->user_id)->liked(Auth::user()->id))
-					<div class="col-4">
-						<a href="/follow/{{$followers[$i]->user_id}}">
-							<button type="button" class="btn btn-info" style=" border-radius:5px; ">Follow</button>
+					<div class="col-5">
+						<a class="btn btn-info btn-block" href="/follow/{{$followers[$i]->user_id}}">
+							Follow
 						</a>
 					</div>
 					@else
-					<div class="col-4">
-						<a href="/unfollow/{{$followers[$i]->user_id}}">
-							<button type="button" class="btn btn-warning" style=" border-radius:5px; ">Unfollow</button>
+					<div class="col-5">
+						<a class="btn btn-warning  btn-block" href="/unfollow/{{$followers[$i]->user_id}}">
+							Unfollow
 						</a>
 					</div>
 					@endif @endif @endif
+
 					<hr style="margin:0px;">
 			</div>
 			@endfor
@@ -188,25 +196,25 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-
+				
 			<div class="modal-body">
 				@foreach($following as $u)
-				<div class=" row">
-					<div class="col-8">
-						<img src="{{\App\User::find($u->id)->user_image}}" style="border-radius:200px; max-width:50px; max-height:50px; margin: 10px">{{\App\User::find($u->id)->name}}</span>
+				<div class=" list-group-item">
+					<div class="col-7" style="color: black;">
+						<img src="{{\App\User::find($u->id)->user_image}}" ><h5 style="vertical-align:middle;margin-top:3.5%;">{{\App\User::find($u->id)->name}}</h5>
 
 					</div>
 
 					@if(Auth::check()) @if($u->id == Auth::user()->id) @else @if(! \App\User::find($u->id)->liked(Auth::user()->id))
-					<div class="col-4">
-						<a href="/follow/{{$u->id}}">
-							<button type="button" class="btn btn-info" style=" border-radius:5px; ">Follow</button>
+					<div class="col-5">
+						<a class="btn btn-info btn-block" href="/follow/{{$u->id}}">
+							Follow
 						</a>
 					</div>
 					@else
-					<div class="col-4">
-						<a href="/unfollow/{{$u->id}}">
-							<button type="button" class="btn btn-warning" style=" border-radius:5px; ">Unfollow</button>
+					<div class="col-5">
+						<a class="btn btn-warning btn-block" href="/unfollow/{{$u->id}}">
+							Unfollow
 						</a>
 					</div>
 					@endif @endif @endif
