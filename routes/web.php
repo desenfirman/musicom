@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-	return view('layouts.master');
+	return redirect('/index');
 });
 /*Route::get('/test', function () {
 	return view('dashboard.manage');
